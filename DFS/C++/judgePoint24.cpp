@@ -1,55 +1,47 @@
 class Solution {
 public:
-    static constexpr int TARGET = 24;
-    static constexpr double EPSILON = 1e-6;
-    static constexpr int ADD = 0, MULTIPLY = 1, SUBTRACT = 2, DIVIDE = 3;
-
-    bool judgePoint24(vector<int> &nums) {
-        vector<double> l;
-        for (const int &num : nums) {
-            l.emplace_back(static_cast<double>(num));
-        }
-        return solve(l);
+    bool judgePoint24(vector<int>& nums) {
+        double eps = 1e-6;
+        vector<char> operators = {'+', '-', '*', '/'};
+        vector<double> nums1(nums.begin(), nums.end());
+        return dfs(nums1, operators, eps);
     }
 
-    bool solve(vector<double> &l) {
-        if (l.size() == 0) {
-            return false;
+    bool dfs(vector<double> &nums, vector<char> &operators, double eps) {
+        if (nums.size() == 1) {
+            return abs(nums[0] - 24) < eps;
         }
-        if (l.size() == 1) {
-            return fabs(l[0] - TARGET) < EPSILON;
-        }
-        int size = l.size();
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (i != j) {
-                    vector<double> list2 = vector<double>();
-                    for (int k = 0; k < size; k++) {
-                        if (k != i && k != j) {
-                            list2.emplace_back(l[k]);
-                        }
+
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = 0; j < nums.size(); j++) {
+                if (i == j) {
+                    continue; // if nums[i] == nums[j] which means the same number
+                }
+                vector<double> tmp;
+                for (int k = 0; k < nums.size(); k++) {
+                    if (k != i && k != j) {
+                        tmp.push_back(nums[k]);
                     }
-                    for (int k = 0; k < 4; k++) {
-                        if (k < 2 && i > j) {
-                            continue;
-                        }
-                        if (k == ADD) {
-                            list2.emplace_back(l[i] + l[j]);
-                        } else if (k == MULTIPLY) {
-                            list2.emplace_back(l[i] * l[j]);
-                        } else if (k == SUBTRACT) {
-                            list2.emplace_back(l[i] - l[j]);
-                        } else if (k == DIVIDE) {
-                            if (fabs(l[j]) < EPSILON) {
-                                continue;
-                            }
-                            list2.emplace_back(l[i] / l[j]);
-                        }
-                        if (solve(list2)) {
-                            return true;
-                        }
-                        list2.pop_back();
+                }
+
+                for (char opt : operators) {
+                    if ((opt == '+' || opt == '*') && i > j) {
+                        continue;
                     }
+                    if (opt == '/' && nums[j] < eps) {
+                        continue;
+                    }
+                    switch(opt) {
+                        case '+': tmp.push_back(nums[i] + nums[j]); break;
+                        case '-': tmp.push_back(nums[i] - nums[j]); break;
+                        case '*': tmp.push_back(nums[i] * nums[j]); break;
+                        case '/': tmp.push_back(nums[i] / nums[j]); break;
+                    }
+
+                    if (dfs(tmp, operators, eps)) {
+                        return true;
+                    }
+                    tmp.pop_back();
                 }
             }
         }
