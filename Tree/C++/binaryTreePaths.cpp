@@ -46,34 +46,36 @@ public:
 };
 
 
+
 class Solution {
 public:
     vector<string> binaryTreePaths(TreeNode* root) {
-        vector<string> result;
         queue<TreeNode*> node_queue;
-        queue<string> path_queue;
+        queue<string> val_queue;
 
-        if (root != NULL) {
+        vector<string> result;
+
+        if (root != nullptr) {
             node_queue.push(root);
-            path_queue.push(to_string(root -> val));
+            val_queue.push(to_string(root -> val));
         }
 
         while (!node_queue.empty()) {
             TreeNode *cur_node = node_queue.front(); node_queue.pop();
-            string cur_path = path_queue.front(); path_queue.pop();
+            string cur_val = val_queue.front(); val_queue.pop();
 
-            if (cur_node -> left == NULL && cur_node -> right == NULL) {
-                result.push_back(cur_path);
+            if (cur_node -> left == nullptr && cur_node -> right == nullptr) {
+                result.push_back(cur_val);
             }
 
-            if (cur_node -> left != NULL) {
+            if (cur_node -> left != nullptr) {
                 node_queue.push(cur_node -> left);
-                path_queue.push(cur_path + "->" + to_string(cur_node -> left -> val));
+                val_queue.push(cur_val + "->" + to_string(cur_node -> left -> val));
             }
 
-            if (cur_node -> right != NULL) {
+            if (cur_node -> right != nullptr) {
                 node_queue.push(cur_node -> right);
-                path_queue.push(cur_path + "->" + to_string(cur_node -> right -> val));
+                val_queue.push(cur_val + "->" + to_string(cur_node -> right -> val));
             }
         }
 
