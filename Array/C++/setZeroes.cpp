@@ -1,9 +1,13 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        int n_rows = matrix.size(), n_cols = matrix[0].size();
+        if (matrix.empty()) {
+            return ;
+        }
 
-        set<int> rows, cols;
+        int n_rows = matrix.size(), n_cols = matrix[0].size();
+        unordered_set<int> rows;
+        unordered_set<int> cols;
 
         for (int i = 0; i < n_rows; i++) {
             for (int j = 0; j < n_cols; j++) {
@@ -14,15 +18,11 @@ public:
             }
         }
 
-        for (auto row : rows) {
-            for (int j = 0; j < n_cols; j++) {
-                matrix[row][j] = 0;
-            }
-        }
-
         for (int i = 0; i < n_rows; i++) {
-            for (auto col : cols) {
-                matrix[i][col] = 0;
+            for (int j = 0; j < n_cols; j++) {
+                if (rows.find(i) != rows.end() || cols.find(j) != cols.end()) {
+                    matrix[i][j] = 0;
+                }
             }
         }
     }
