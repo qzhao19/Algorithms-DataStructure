@@ -71,3 +71,38 @@ public:
         return dummy_node -> next;
     }
 };
+
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if (head == nullptr) {
+            return nullptr;
+        }
+
+        ListNode *dummy_node = new ListNode(0);
+        dummy_node -> next = head;
+        ListNode *cur_ptr = dummy_node;
+
+        ListNode *ptr_1 = nullptr;
+        ListNode *ptr_2 = nullptr;
+
+        while (cur_ptr -> next != nullptr) {
+            ptr_1 = cur_ptr -> next;
+            ptr_2 = cur_ptr -> next;
+
+            while (ptr_2 -> next != nullptr && ptr_2 -> next -> val == ptr_1 -> val) {
+                ptr_2 = ptr_2 -> next;
+            }
+           
+            if (ptr_1 == ptr_2) {
+                cur_ptr = cur_ptr -> next;
+            }
+            else {
+                cur_ptr -> next = ptr_2 -> next;
+            }
+        }
+
+        return dummy_node -> next;
+    }
+};

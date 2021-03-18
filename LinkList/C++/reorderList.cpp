@@ -11,31 +11,31 @@
 class Solution {
 public:
     void reorderList(ListNode* head) {
-        if (head == NULL) {
+        if (head == nullptr) {
             return ;
         }
 
-        vector<ListNode*> node_vec;
-        ListNode *node = head;
-
-        while (node != NULL) {
-            node_vec.push_back(node);
-            node = node -> next; 
+        vector<ListNode*> list_vec;
+        while (head != nullptr) {
+            list_vec.push_back(head);
+            head = head -> next;
         }
 
-        int left = 0, right = node_vec.size() - 1;
+        int n = list_vec.size();
+        int left = 0, right = n - 1;
+
         while (left < right) {
-            node_vec[left] -> next = node_vec[right];
+            list_vec[left] -> next = list_vec[right];
             left++;
 
             if (left == right) {
                 break;
             }
 
-            node_vec[right] -> next = node_vec[left];
+            list_vec[right] -> next = list_vec[left];
             right--;
         }
 
-        node_vec[left] -> next = nullptr;
+        list_vec[left] -> next = nullptr;
     }
 };
