@@ -8,8 +8,8 @@ template<typename Type> using ListNodePosition = ListNode<Type>*;
 
 template<typename Type> struct ListNode{
     Type val;
-    ListNodePosition<Type> pred_node;
-    ListNodePosition<Type> next_node;
+    ListNodePosition<Type> pred;
+    ListNodePosition<Type> next;
 
     ListNode(){};
 
@@ -25,10 +25,10 @@ template<typename Type> struct ListNode{
 
     // default constructor
     ListNode(Type x, ListNodePosition<Type> pred, ListNodePosition<Type> next): 
-            val(x), pred_node(pred), next_node(next) {};
+            val(x), pred(pred), next(next) {};
     
-    // listNode<Type> insertAsPred(Type const & val)
-    // listNode<Type> insertAsNext(Type const & val)
+    ListNodePosition<Type> insertAsPred(Type const &x);
+    ListNodePosition<Type> insertAsNext(Type const &x);
 
 };
 
