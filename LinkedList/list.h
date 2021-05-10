@@ -12,6 +12,8 @@ private:
 protected:
     void init();
     int clear();
+    void copyNodes(ListNodePosition<Type> node, int n);
+    
 
 public:
 
@@ -31,9 +33,5 @@ public:
 };
 
 
-template<typename Type> void init()
 
-
-
-
-#endif
+#endif;
