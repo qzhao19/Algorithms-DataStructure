@@ -2,11 +2,11 @@
 #include "listnode.h"
 
 template <typename Type>
-ListNodePosition<Type> ListNode<Type>::insertAsPred(Type const &x) {
-    ListNodePosition<Type> node = new ListNode(x, pred, this);
+ListNodePosition<Type> ListNode<Type>::insertAsPrev(Type const &x) {
+    ListNodePosition<Type> node = new ListNode(x, prev, this);
 
-    pred -> next = node;
-    pred = node;
+    prev -> next = node;
+    prev = node;
 
     return node;
 };
@@ -16,7 +16,7 @@ template <typename Type>
 ListNodePosition<Type> ListNode<Type>::insertAsNext(Type const &x) {
     ListNodePosition<Type> node = new ListNode(x, this, next);
 
-    next -> pred = node;
+    next -> prev = node;
     next = node;
 
     return node;
