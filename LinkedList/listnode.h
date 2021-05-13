@@ -13,6 +13,15 @@ template<typename Type> struct ListNode{
 
     ListNode(){};
 
+    /*
+    ListNode(Type x): value(x), pred_node(nullptr), next_node(nullptr) {};
+
+    ListNode(Type x, ListNode<Type> *pred): 
+            value(x), pred_node(pred), next_node(nullptr) {};
+
+    ListNode(Type x, ListNode<Type> *next): 
+            value(x), pred_node(nullptr), next_node(next) {};
+    */
 
     // default constructor
     ListNode(Type x, ListNodePosition<Type> prev, ListNodePosition<Type> next): 
