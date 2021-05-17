@@ -2,8 +2,7 @@
 #define TREENODE_H_
 
 
-template<typename T> 
-struct TreeNode {
+template<typename T> struct TreeNode {
     T val;
     TreeNode *left;
     TreeNode *right;
