@@ -51,7 +51,10 @@ void BinaryTree<T>::insert(TreeNode<T> *node, const T &x) {
     
 }
 
-
+template<typename T>
+void BinaryTree<T>::remove(TreeNode<T> *node, const T &x) {
+    
+}
 
 
 
