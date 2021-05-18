@@ -53,11 +53,51 @@ void BinaryTree<T>::insert(TreeNode<T> *node, const T &x) {
 
 template<typename T>
 void BinaryTree<T>::remove(TreeNode<T> *node, const T &x) {
-    
+    if (node == nullptr) {
+        return ;
+    }
+    else {
+        if (x < node -> val) {
+            remove(node -> left, x);
+        }
+        else if (x > node -> val) {
+            remove(node -> right, x);
+        } 
+        else if (node -> left != nullptr && node -> right != nullptr) {
+            node -> val = findMin(node -> right) -> val;
+            remove(node -> right, node -> val);
+        }
+        else {
+            TreeNode<T> *old_node = node;
+            node = (node -> left != nullptr) ? node -> left ? node -> right;
+            delete old_node;
+        }
+    }
+
 }
 
 
+template<typename T>
+TreeNode<T>* BinaryTree<T>::findMin(TreeNode<T> *node) const {
+    if (node != nullptr) {
+        while (node -> left != nullptr) {
+            node = node -> left;
+        }
+    }
 
+    return node;
+}
+
+template<typename T>
+TreeNode<T>* BinaryTree<T>::findMax(TreeNode<T> *node) const {
+    if (node != nullptr) {
+        while (node -> right != nullptr) {
+            node = node -> right;
+        }
+    }
+
+    return node;
+}
 
 
 template <typename T>
@@ -99,7 +139,10 @@ void BinaryTree<T>::insert(const T &x) {
 
 }
 
-
+template <typename T>
+void BinaryTree<T>::remove(const T &x) {
+    remove(root, x);
+}
 
 
 
