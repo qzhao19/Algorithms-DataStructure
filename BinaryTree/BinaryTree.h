@@ -15,10 +15,16 @@ protected:
     void insert(TreeNode<T> *node, const T &x);
     void remove(TreeNode<T> *node, const T &x);
     TreeNode<T> *search(TreeNode<T> *node, const T &x);
+    
+    TreeNode<T> *findMin(TreeNode<T> *node) const;
+    TreeNode<T> *findMax(TreeNode<T> *node) const;
 
     void inorderTraversal(TreeNode<T> *node);
     void postorderTraversal(TreeNode<T> *node);
     void preorderTraversal(TreeNode<T> *node);
+
+
+    
 
 public:
     BinaryTree();
