@@ -5,6 +5,8 @@
 #include <iostream>
 #include <stdlib.h>
 
+const double EPSILON = 1e-10;
+
 class Matrix {
 
 private:
@@ -27,7 +29,7 @@ public:
     Matrix& operator*=(const Matrix &M);
     Matrix& operator*(const Matrix &M) const;
 
-    static Matrix Hadamard(const Matrix &A, const Matrix & B);
+    static Matrix hadamardProduct(const Matrix &A, const Matrix &B);
 
     static Matrix Solve(const Matrix &A, const Matrix &b);
 
