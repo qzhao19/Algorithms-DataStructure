@@ -161,10 +161,30 @@ Matrix Matrix::hadamardProduct(const Matrix &A, const Matrix &B) {
 Matrix Matrix::Solve(const Matrix &A, const Matrix &b) {
     // Gaussian elimination method 
     for (int i = 0; i < A.n_rows; i++) {
-        if (A.mat[i][j] == 0) {
-            
+        if (A.mat[i][i] == 0) {
+            cout << "Please input: " << endl;
+        }
+
+        for (int j = i + 1; j < A.n_rows; j++) {
+            for (int k = i + 1; k < A.n_cols; k++) {
+                A.mat[j][k] -= A.mat[i][k] * (A.mat[j][i] / A.mat[i][i]);
+
+                if (abs(A.mat[j][k]) < EPSILON) {
+                    A.mat[j][k] = 0;
+                }
+            }
+
+            b.mat[j][0] -= b.mat[i][0] * (A.mat[j][i] / A.mat[i][i]);
+            if (abs(b.mat[j][0]) < EPSILON) {
+                b.mat[j][0] = 0;
+            }
+            A.mat[j][i] = 0;
         }
     }
+
+
+    Matrix retmat(A.n_rows, 1);
+    retmat.mat[retmat.n_rows - 1][0] = b
 
 }
 
